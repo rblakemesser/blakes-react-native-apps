@@ -1,5 +1,7 @@
 export default {
-  BG: '#EFF1F3',
-  BOX: '#7392B7',
-  TEXT: '#6B6054'
+  BG: '#E6E6E6',
+  TEAL: '#297373',
+  ORANGE: '#FF8552',
+  CHARCOAL: '#39393A',
+  YELLOW: '#E9D758'
 };

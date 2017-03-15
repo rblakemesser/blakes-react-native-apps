@@ -3,32 +3,33 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import Sound from 'react-native-sound';
 
 import Colors from '../styles/Colors';
+import Thunder from './svg/Thunder';
 
 
 const styles = StyleSheet.create({
   page: {
-    paddingLeft: 30,
-    paddingRight: 30,
     backgroundColor: Colors.BG,
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1
   },
+  icon: {
+  },
   box: {
-    backgroundColor: Colors.BOX,
-    height: 100,
-    width: 100,
+    backgroundColor: Colors.TEAL,
+    height: 300,
+    width: 300,
+    borderRadius: 150,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30
+    alignItems: 'center'
   }
 });
 
 const noises = [
   {
     name: 'thunder',
-    file: 'thunder.mp3'
+    file: 'thunder.mp3',
+    component: Thunder
   },
 ]
 
@@ -41,22 +42,28 @@ class Box extends React.Component {
   }
 
   componentWillMount() {
-    this.whoosh = new Sound(this.props.file, Sound.MAIN_BUNDLE, (error) => {
+    this.audio = new Sound(this.props.file, Sound.MAIN_BUNDLE, (error) => {
       if (error) {
         console.log('failed to load the sound', error);
         return;
       }
     });
+
+    this.audio.setNumberOfLoops(-1);
   }
 
   componentWillUnmount() {
-    if (this.whoosh && this.whoosh.isLoaded()) {
-      this.whoosh.release();
+    if (this.audio && this.audio.isLoaded()) {
+      this.audio.release();
     }
   }
 
   startPlayback() {
-    this.whoosh.play((success) => {
+    if (this.state.playing) {
+      return;
+    }
+
+    this.audio.play((success) => {
       if (success) {
         console.log('successfully finished playing');
       } else {
@@ -67,12 +74,16 @@ class Box extends React.Component {
   }
 
   stopPlayback() {
-    this.whoosh.pause();
+    if (!this.state.playing) {
+      return;
+    }
+
+    this.audio.pause();
     this.setState({playing: false});
   }
 
   handlePress = e => {
-    if (!this.whoosh.isLoaded()) {
+    if (!this.audio.isLoaded()) {
       return;
     }
 
@@ -84,14 +95,15 @@ class Box extends React.Component {
   }
 
   render() {
+    const Icon = this.props.component;
     return (
-      <View style={styles.box}>
-        <TouchableOpacity onPress={this.handlePress}>
-          <Text>
-            {this.props.name}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity activeOpacity={.9} onPress={this.handlePress}>
+        <View style={styles.box}>
+          <View style={styles.icon}>
+            <Icon color={this.state.playing ? Colors.YELLOW : Colors.CHARCOAL} />
+          </View>
+        </View>
+      </TouchableOpacity>
     )
   }
 }
