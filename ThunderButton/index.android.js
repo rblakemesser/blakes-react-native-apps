@@ -13,4 +13,4 @@ import {
 } from 'react-native';
 import NoiseSelectionPage from './src/components/NoiseSelectionPage';
 
-AppRegistry.registerComponent('Sandbox', () => NoiseSelectionPage);
+AppRegistry.registerComponent('ThunderButton', () => NoiseSelectionPage);

@@ -1,4 +1,4 @@
-package com.sandbox;
+package com.thunderbutton;
 
 import android.app.Application;
 

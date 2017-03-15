@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-export default class Sandbox extends Component {
+export default class ThunderButton extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('Sandbox', () => Sandbox);
+AppRegistry.registerComponent('ThunderButton', () => ThunderButton);
