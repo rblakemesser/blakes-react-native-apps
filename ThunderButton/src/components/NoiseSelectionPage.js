@@ -65,7 +65,9 @@ class Box extends React.Component {
 
     this.audio.play((success) => {
       if (success) {
-        console.log('successfully finished playing');
+        console.log('completed loop');
+        this.setState({playing: false});
+        this.startPlayback();
       } else {
         console.log('playback failed due to audio decoding errors');
       }
